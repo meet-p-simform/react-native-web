@@ -1,2 +1,3 @@
-export { default as Colors, ThemeModeEnum, type ThemeMode } from './Colors';
+export { default as Colors } from './Colors';
 export * from './Metrics';
+export * from './AppTheme';

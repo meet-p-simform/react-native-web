@@ -3,6 +3,7 @@ import { createNativeStackNavigator } from '@react-navigation/native-stack';
 import React from 'react';
 import { ROUTES } from '../constants';
 import { HomeScreen } from '../modules';
+import DetailsScreen from '../modules/details/DetailsScreem';
 import { navigationRef } from '../utils';
 
 /**
@@ -18,6 +19,7 @@ type RootStackParamList = {
   // add types for route params here e.g. -
   // [ROUTES.Profile]: { id: string };
   [ROUTES.Home]: undefined;
+  [ROUTES.Details]: undefined;
 };
 
 /**
@@ -33,8 +35,9 @@ const RootStack = createNativeStackNavigator<RootStackParamList>();
 const AppContainer = () => {
   return (
     <NavigationContainer ref={navigationRef}>
-      <RootStack.Navigator>
+      <RootStack.Navigator screenOptions={{ headerShown: false }}>
         <RootStack.Screen name={ROUTES.Home} component={HomeScreen} />
+        <RootStack.Screen name={ROUTES.Details} component={DetailsScreen} />
       </RootStack.Navigator>
     </NavigationContainer>
   );

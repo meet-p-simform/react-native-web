@@ -1,6 +1,16 @@
 import { combineReducers, configureStore } from '@reduxjs/toolkit';
-import { persistReducer, persistStore } from 'redux-persist';
+import {
+  FLUSH,
+  PAUSE,
+  PERSIST,
+  PURGE,
+  REGISTER,
+  REHYDRATE,
+  persistReducer,
+  persistStore
+} from 'redux-persist';
 import { reduxStorage } from '../services';
+import { TodoReducer } from './todo';
 /**
  * The Configuring persistConfig object for ReduxStorage.
  * @type {object}
@@ -13,16 +23,16 @@ import { reduxStorage } from '../services';
 const persistConfig = {
   key: '@ReactNativeWebToolkitCachePersist',
   version: 1,
-  storage: reduxStorage,
-  whitelist: ['auth'], // Whitelist (Save Specific Reducers)
-  blacklist: ['nav', 'navigation'] // Blacklist (Don't Save Specific Reducers)
+  storage: reduxStorage
 };
 
 /**
  * Combining all the reducers into one reducer.
  * @returns {Object} The new reducers of the application.
  */
-const rootReducer = combineReducers({});
+const rootReducer = combineReducers({
+  todos: TodoReducer
+});
 
 /**
  * Creates a persisted reducer that can be used in a Redux store.
@@ -52,9 +62,10 @@ const store = configureStore({
   devTools: false,
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({
-      thunk: true,
-      serializableCheck: false
-    }).concat(middlewareList)
+      serializableCheck: {
+        ignoredActions: [FLUSH, REHYDRATE, PAUSE, PERSIST, PURGE, REGISTER]
+      }
+    })
 });
 
 /**

@@ -5,7 +5,7 @@ const webpack = require('webpack');
 const appDirectory = path.resolve(__dirname, './');
 const { presets } = require(`${appDirectory}/babel.config.js`);
 
-const compileNodeModules = ['@sentry/react-native'].map((moduleName) =>
+const compileNodeModules = ['native-base'].map((moduleName) =>
   path.resolve(appDirectory, `node_modules/${moduleName}`)
 );
 
